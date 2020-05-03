@@ -24,11 +24,11 @@ public class Phone {
 	byte[] buf_mic = new byte[800];
 
 	// AudioFormat for Calling
-	float sampleRate = 4000.0f; // 2000.0[Hz]
+	float sampleRate = 44000.0f; // 2000.0[Hz]
 	int sampleSizeInBits = 16; // 16 bits / frame
 	int channels = 1; // 1 for mono, 2 for stereo
 	int frameSize = 2;
-	float frameRate = 4000.0f;
+	float frameRate = 44000.0f;
 	boolean bigEndian = false;
 
 	private AudioFormat format_mic = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, sampleRate, sampleSizeInBits,

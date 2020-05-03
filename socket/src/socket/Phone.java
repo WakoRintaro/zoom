@@ -21,14 +21,14 @@ public class Phone {
 	private Thread th_hear;
 
 	// Buffer
-	byte[] buf_mic = new byte[800];
+	byte[] buf_mic = new byte[1000];
 
 	// AudioFormat for Calling
-	float sampleRate = 44000.0f; // 2000.0[Hz]
+	float sampleRate = 10000.0f; // 2000.0[Hz]
 	int sampleSizeInBits = 16; // 16 bits / frame
 	int channels = 1; // 1 for mono, 2 for stereo
 	int frameSize = 2;
-	float frameRate = 44000.0f;
+	float frameRate = 10000.0f;
 	boolean bigEndian = false;
 
 	private AudioFormat format_mic = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, sampleRate, sampleSizeInBits,

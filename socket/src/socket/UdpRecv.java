@@ -7,7 +7,7 @@ import java.net.SocketException;
 
 public class UdpRecv extends Thread{
 	private DatagramSocket socket;
-	private byte[] buf = new byte[900];
+	private byte[] buf = new byte[1500];
 	
 	public UdpRecv(int port) {
 		try {
@@ -19,7 +19,7 @@ public class UdpRecv extends Thread{
 	}
 	
 	public void run() {
-		System.out.println("[*] Start Waiting");
+		System.out.println("[*] Start Listening ");
 		while(true) {
 			DatagramPacket packet = new DatagramPacket(buf, buf.length);
 			try {
@@ -33,7 +33,7 @@ public class UdpRecv extends Thread{
 			if(received.equals("bye")) break;
 		}
 		socket.close();
-		System.out.println("[*] End");
+		System.out.println("[*] End Listening ");
 	}
 	public static void main(String[] args) {
 		UdpRecv udp_recv = new UdpRecv(4445);

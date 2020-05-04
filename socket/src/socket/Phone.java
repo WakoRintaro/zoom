@@ -19,9 +19,12 @@ public class Phone {
 	// 通話用Thread th_talk：発話用、th_hear：受信用
 	private Thread th_talk;
 	private Thread th_hear;
+	
+	private Encrypt encrypt = new Encrypt();
+	private Encrypt decrypt = new Encrypt();
 
 	// Buffer
-	byte[] buf_mic = new byte[1000];
+	byte[] buf_mic = new byte[1024];
 
 	// AudioFormat for Calling
 	float sampleRate = 10000.0f; // 2000.0[Hz]
@@ -80,7 +83,7 @@ public class Phone {
 						while(true) {
 							int size = audioStream.read(buf_mic, 0, buf_mic.length);
 							if(size <= 0) break;
-							udp_send.sendPacket(buf_mic);
+							udp_send.sendPacket(encrypt.encrypt(buf_mic));
 						}
 				} catch (IOException ioe) {
 					// TODO Auto-generated catch block
@@ -97,17 +100,18 @@ public class Phone {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				byte[] buf = new byte[900];
+				byte[] buf = new byte[1056];
 				
 				while(true) {
-					DatagramPacket packet = new DatagramPacket(buf, buf.length);
+					DatagramPacket packet_encrypted = new DatagramPacket(buf, buf.length);
 					try {
-						socket.receive(packet);
+						socket.receive(packet_encrypted);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					line_sp.write(packet.getData(), 0, packet.getData().length);
+					byte[] packet_decrypted = decrypt.decrypt(packet_encrypted.getData());
+					line_sp.write(packet_decrypted, 0, packet_decrypted.length);
 				}
 			}
 		};

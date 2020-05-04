@@ -41,10 +41,6 @@ public class UdpSend {
 	}
 
 	public static void main(String[] args) {
-		UdpSend udp_send = new UdpSend("localhost", 4445);
-		String msg = "rintaro";
-		udp_send.sendPacket(msg.getBytes());
-		udp_send.close();
 		
 	}
 
